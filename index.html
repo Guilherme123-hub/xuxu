@@ -3,379 +3,444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma de Cidadania e Direitos</title>
+    <title>Se Liga Jovem | Informação e Apoio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* TEMA ESCURO (Dark Mode) */
+        /* ================= VÁRIAVEIS DE CORES ================= */
         :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --primary-color: #bb86fc; /* Roxo claro para contraste em fundo escuro */
-            --secondary-color: #3700b3;
-            --text-color: #e0e0e0;
-            --danger-color: #cf6679;
-            --border-color: #333;
+            --bg-color: #0f0c29;
+            --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --primary: #8A2BE2; /* Roxo */
+            --secondary: #FF1493; /* Rosa */
+            --accent-blue: #00BFFF; /* Azul */
+            --accent-yellow: #FFD700; /* Amarelo */
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --danger: #FF4136;
+            --whatsapp: #25D366;
+        }
+
+        /* ================= RESET E BASE ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
+            background: var(--bg-gradient);
+            color: var(--text-light);
             line-height: 1.6;
-            overflow-x: hidden; /* Evita rolagem horizontal com os balões */
+            overflow-x: hidden;
         }
 
-        header {
-            background-color: #000;
-            text-align: center;
-            padding: 2rem 1rem;
-            border-bottom: 3px solid var(--primary-color);
-            position: relative;
-            z-index: 10;
-        }
-
-        h1, h2, h3 {
-            color: var(--primary-color);
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* SISTEMA DE ABAS */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 8px 8px 0 0;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .tab-btn:hover {
-            background-color: #2c2c2c;
-        }
-
-        .tab-btn.active {
-            background-color: var(--primary-color);
-            color: #000;
-            border-color: var(--primary-color);
-        }
-
-        .tab-content {
-            display: none; /* Esconde todas as abas por padrão */
-            background: var(--card-bg);
-            border-radius: 0 8px 8px 8px;
-            padding: 2rem;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-            border: 1px solid var(--border-color);
-            animation: fadeIn 0.4s ease;
-        }
-
-        .tab-content.active {
-            display: block; /* Mostra apenas a aba ativa */
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* NOTÍCIAS */
-        .news-box {
-            background-color: #2a2a2a;
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-color);
-            margin-top: 1.5rem;
-        }
-
-        .news-box a {
-            color: #64b5f6;
+        a {
             text-decoration: none;
-            font-weight: bold;
+            color: inherit;
         }
 
-        .news-box a:hover {
-            text-decoration: underline;
-        }
-
-        /* EMERGÊNCIA */
-        .emergency-box {
-            background-color: rgba(207, 102, 121, 0.1);
-            border: 1px solid var(--danger-color);
-            padding: 1.5rem;
-            border-radius: 8px;
-        }
-
-        .emergency-box h3, .phone-list a {
-            color: var(--danger-color);
-        }
-
-        .phone-list { list-style: none; padding: 0; font-size: 1.2rem; font-weight: bold; }
-        .phone-list li { margin-bottom: 0.8rem; }
-
-        /* FORMULÁRIO E MURAL */
-        .form-group { margin-bottom: 1rem; }
-        label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
-        
-        input[type="text"], textarea {
+        /* ================= CABEÇALHO ================= */
+        header {
+            background: rgba(15, 12, 41, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
             width: 100%;
-            padding: 0.8rem;
-            background-color: #121212;
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        button.submit-btn {
-            background-color: var(--primary-color);
-            color: #000;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-            transition: opacity 0.3s;
-        }
-
-        button.submit-btn:hover {
-            opacity: 0.8;
-        }
-
-        .complaint-item {
-            background-color: #2c2c2c;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-left: 4px solid var(--primary-color);
-        }
-
-        .complaint-header {
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: #aaa;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
         }
 
-        .complaint-author { font-weight: bold; color: var(--primary-color); }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent-blue), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        /* BALÕES FLUTUANTES (Fundo) */
-        .balloon-container {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-yellow);
+        }
+
+        /* ================= SEÇÕES COMUNS ================= */
+        section {
+            padding: 5rem 5%;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2.section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-yellow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* ================= 1. HERO (INÍCIO) ================= */
+        #inicio {
+            min-height: 100vh;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, #ff9a9e, #fecfef, #a1c4fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            color: #d1d1d1;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(138, 43, 226, 0.4); }
+        .btn-secondary { background: var(--secondary); color: white; box-shadow: 0 10px 20px rgba(255, 20, 147, 0.4); }
+        .btn-outline { background: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue); }
+        .btn-outline:hover { background: var(--accent-blue); color: white; }
+
+        /* ================= 2. APOIO WHATSAPP ================= */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
             width: 100%;
-            height: 100%;
-            pointer-events: none; /* Para não atrapalhar o clique nos botões */
-            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-whatsapp {
+            background: var(--whatsapp);
+            color: white;
+            width: 100%;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        /* ================= 3. EMERGÊNCIA ================= */
+        #emergencia {
+            background: rgba(255, 65, 54, 0.05);
+            border-top: 2px solid rgba(255, 65, 54, 0.2);
+            border-bottom: 2px solid rgba(255, 65, 54, 0.2);
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .btn-emergency {
+            background: var(--danger);
+            color: white;
+            font-size: 1.5rem;
+            flex-direction: column;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .btn-emergency span { font-size: 1rem; font-weight: 400; margin-top: 5px; }
+
+        /* ================= 4. DIREITOS ================= */
+        .rights-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .right-item {
+            background: var(--card-bg);
+            border-left: 5px solid var(--accent-blue);
+            padding: 1.5rem;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .right-item h3 { color: var(--accent-blue); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px; }
+
+        /* ================= 5. NOTÍCIAS ================= */
+        .news-card {
+            background: #fff;
+            color: var(--text-dark);
+            border-radius: 15px;
             overflow: hidden;
+            text-align: left;
+        }
+        
+        .news-img {
+            height: 150px;
+            background: #ddd; /* Espaço para imagem real */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
         }
 
-        .balloon {
-            position: absolute;
-            bottom: -50px;
-            background-color: rgba(187, 134, 252, 0.15); /* Roxo bem transparente */
-            border-radius: 50%;
-            animation: floatUp linear infinite;
+        .news-content { padding: 1.5rem; }
+        .news-content h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .news-content p { font-size: 0.9rem; color: #666; margin-bottom: 15px; }
+
+        /* ================= 6. APOIO MENTAL ================= */
+        #mental-health {
+            text-align: center;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        .quote-box {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--accent-yellow);
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+            position: relative;
+        }
+
+        /* ================= RESPONSIVIDADE (MOBILE) ================= */
+        .menu-toggle { display: none; font-size: 2rem; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.2rem; }
+            .hero-buttons { flex-direction: column; width: 100%; padding: 0 20px; }
+            .btn { width: 100%; justify-content: center; }
+            
+            .menu-toggle { display: block; }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 12, 41, 0.95);
+                padding: 1rem 0;
+                text-align: center;
+            }
+            .nav-links.active { display: flex; }
         }
     </style>
 </head>
 <body>
 
-    <div class="balloon-container" id="balloonContainer"></div>
-
     <header>
-        <h1>Portal de Cidadania e Direitos</h1>
+        <div class="logo">⚡ Se Liga Jovem</div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav class="nav-links" id="navLinks">
+            <a href="#inicio" onclick="toggleMenu()">Início</a>
+            <a href="#apoio" onclick="toggleMenu()">Apoio</a>
+            <a href="#emergencia" onclick="toggleMenu()">Emergência</a>
+            <a href="#direitos" onclick="toggleMenu()">Direitos</a>
+            <a href="#noticias" onclick="toggleMenu()">Notícias</a>
+        </nav>
     </header>
 
-    <div class="container">
-        
-        <div class="tabs">
-            <button class="tab-btn active" onclick="openTab(event, 'tab-info')">💡 Início & Notícias</button>
-            <button class="tab-btn" onclick="openTab(event, 'tab-mural')">🗣️ Mural de Reclamações</button>
-            <button class="tab-btn" onclick="openTab(event, 'tab-emergencia')">🚨 Telefones Úteis</button>
+    <section id="inicio">
+        <h1 class="hero-title">Informação, apoio e atitude para transformar sua realidade.</h1>
+        <p class="hero-subtitle">Você não está sozinho. Conheça seus direitos, saiba como agir em situações difíceis e encontre a ajuda que precisa com apenas um clique.</p>
+        <div class="hero-buttons">
+            <a href="#apoio" class="btn btn-secondary">🚨 Preciso de ajuda</a>
+            <a href="#mental-health" class="btn btn-primary">💬 Falar com alguém</a>
+            <a href="#direitos" class="btn btn-outline">📚 Conheça seus direitos</a>
         </div>
+    </section>
 
-        <div id="tab-info" class="tab-content active">
-            <h2>Objetivo Geral</h2>
-            <p><strong>Desenvolver uma plataforma digital integrada</strong> que promova a orientação de direitos, facilite denúncias seguras e estimule a educação cidadã e política de jovens e famílias.</p>
-            
-            <div class="news-box">
-                <h3>📰 Fique Atualizado</h3>
-                <p>Acompanhe as últimas notícias, decisões e debates sobre Direitos Humanos e Cidadania no Brasil.</p>
-                <a href="https://agenciabrasil.ebc.com.br/direitos-humanos" target="_blank">Ler notícias recentes na Agência Brasil ➔</a>
+    <section id="apoio">
+        <h2 class="section-title">💬 Fale Agora (WhatsApp)</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🛡️</div>
+                <h3>Conselho Tutelar</h3>
+                <p>Para denúncias de violação de direitos de crianças e adolescentes.</p>
+                <a href="https://wa.me/5511900000000?text=Olá,%20preciso%20de%20ajuda%20do%20Conselho%20Tutelar." target="_blank" class="btn btn-whatsapp">Chamar no Whats</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">🚓</div>
+                <h3>Polícia Local</h3>
+                <p>Contato direto para situações suspeitas ou orientações não urgentes.</p>
+                <a href="https://wa.me/5511900000000?text=Olá,%20gostaria%20de%20fazer%20uma%20denúncia/relato." target="_blank" class="btn btn-whatsapp">Chamar no Whats</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">💛</div>
+                <h3>Apoio Emocional</h3>
+                <p>Está difícil lidar com tudo? Converse com um voluntário (CVV).</p>
+                <a href="https://wa.me/5511900000000?text=Olá,%20preciso%20conversar%20com%20alguém." target="_blank" class="btn btn-whatsapp">Chamar no Whats</a>
             </div>
         </div>
+    </section>
 
-        <div id="tab-mural" class="tab-content">
-            <h2>Registrar uma Reclamação</h2>
-            <p>Relate problemas em sua comunidade. <em>Atenção: este mural é público. Não inclua dados pessoais sensíveis.</em></p>
-            
-            <form id="complaintForm">
-                <div class="form-group">
-                    <label for="author">Seu Nome (ou digite "Anônimo"):</label>
-                    <input type="text" id="author" placeholder="Ex: João da Silva ou Anônimo" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Descrição da Reclamação:</label>
-                    <textarea id="message" rows="4" placeholder="Descreva o problema..." required></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">Publicar Reclamação</button>
-            </form>
-
-            <h2 style="margin-top: 2rem;">Mural Público</h2>
-            <div id="complaintsList"></div>
+    <section id="emergencia">
+        <h2 class="section-title">🚨 Telefones de Emergência</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">Risco imediato? Não mande mensagem, <strong>LIGUE!</strong> A ligação é gratuita e pode ser feita de qualquer celular.</p>
+        <div class="emergency-grid">
+            <a href="tel:190" class="btn btn-emergency">📞 190 <span>Polícia Militar</span></a>
+            <a href="tel:192" class="btn btn-emergency">🚑 192 <span>SAMU (Socorro Médico)</span></a>
+            <a href="tel:193" class="btn btn-emergency">🚒 193 <span>Bombeiros</span></a>
+            <a href="tel:100" class="btn btn-emergency">🗣️ 100 <span>Direitos Humanos</span></a>
+            <a href="tel:180" class="btn btn-emergency">💜 180 <span>Apoio à Mulher</span></a>
+            <a href="tel:188" class="btn btn-emergency">💛 188 <span>CVV (Prevenção ao Suicídio)</span></a>
         </div>
+    </section>
 
-        <div id="tab-emergencia" class="tab-content">
-            <div class="emergency-box">
-                <h3>⚠️ Emergência e Denúncia Sigilosa</h3>
-                <p>O mural público não deve ser usado para emergências em andamento. Ligue imediatamente para as autoridades:</p>
-                <ul class="phone-list">
-                    <li>🚓 Polícia Militar: <a href="tel:190">190</a></li>
-                    <li>🕵️ Disque Denúncia: <a href="tel:181">181</a></li>
-                    <li>🤝 Direitos Humanos: <a href="tel:100">100</a></li>
-                    <li>👩 Atendimento à Mulher: <a href="tel:180">180</a></li>
-                    <li>🚑 SAMU: <a href="tel:192">192</a></li>
-                </ul>
+    <section id="direitos">
+        <h2 class="section-title">📚 Conheça seus Direitos</h2>
+        <div class="rights-list">
+            <div class="right-item">
+                <h3>📖 Direitos dos Jovens (ECA / Estatuto da Juventude)</h3>
+                <p>Você tem direito à vida, saúde, liberdade, respeito, dignidade, convivência familiar, educação, cultura, esporte e lazer. Ninguém pode te forçar a trabalhar de forma exploratória ou perigosa.</p>
+            </div>
+            <div class="right-item">
+                <h3>🛑 Bullying e Cyberbullying</h3>
+                <p>Zombaria constante, agressão física ou exclusão não é "brincadeira", é violência. O mesmo vale para a internet (Cyberbullying). A escola e a família têm o dever de intervir e proteger a vítima.</p>
+            </div>
+            <div class="right-item">
+                <h3>🏠 Violência Doméstica</h3>
+                <p>Agressões físicas, gritos constantes, humilhações ou controle excessivo dentro de casa não são normais. Você tem o direito de denunciar e ser protegido pelo Estado, independentemente de quem seja o agressor.</p>
+            </div>
+            <div class="right-item">
+                <h3>🚫 Abuso e Assédio</h3>
+                <p>Seu corpo é seu. Qualquer toque não consentido, comentários invasivos ou pressão para enviar fotos íntimas é crime. Fale com um adulto de confiança ou ligue para o Disque 100 imediatamente.</p>
+            </div>
+            <div class="right-item">
+                <h3>🛒 Direitos do Consumidor Jovem</h3>
+                <p>Comprou algo na internet e se arrependeu? Você tem 7 dias para devolver (Direito de Arrependimento). Baladas não podem cobrar "consumação mínima" obrigatória. Fique ligado!</p>
             </div>
         </div>
+    </section>
 
-    </div>
+    <section id="noticias">
+        <h2 class="section-title">📰 Fique Ligado</h2>
+        <div class="cards-grid">
+            <div class="card news-card">
+                <div class="news-img">🎓</div>
+                <div class="news-content">
+                    <h3>Inscrições para o Enem e Jovem Aprendiz</h3>
+                    <p>Fique atento aos prazos para garantir sua vaga em programas de primeiro emprego e acesso à universidade.</p>
+                    <a href="#" style="color: var(--primary); font-weight: bold;">Ler mais ➔</a>
+                </div>
+            </div>
+            <div class="card news-card">
+                <div class="news-img">📱</div>
+                <div class="news-content">
+                    <h3>Segurança Digital: Como proteger seus dados</h3>
+                    <p>Dicas simples para não cair em golpes no WhatsApp, Instagram e proteger sua privacidade online.</p>
+                    <a href="#" style="color: var(--primary); font-weight: bold;">Ler mais ➔</a>
+                </div>
+            </div>
+            <div class="card news-card">
+                <div class="news-img">🌍</div>
+                <div class="news-content">
+                    <h3>Participação Política Jovem</h3>
+                    <p>Entenda a importância de tirar o título de eleitor aos 16 anos e como sua voz pode mudar a sua cidade.</p>
+                    <a href="#" style="color: var(--primary); font-weight: bold;">Ler mais ➔</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mental-health">
+        <h2 class="section-title">💭 Cuidando da Mente</h2>
+        <div class="quote-box">
+            "Procurar ajuda não é sinal de fraqueza, é o maior ato de coragem que você pode ter por si mesmo."
+        </div>
+        <p style="max-width: 700px; margin: 0 auto 2rem auto; font-size: 1.1rem;">
+            A ansiedade, o estresse dos estudos, os problemas em casa... Tudo isso pode sobrecarregar. Lembre-se que seus sentimentos são válidos. Se você sentir que não aguenta mais, não guarde isso para você. Converse com um amigo, um professor ou ligue para o <strong>188 (CVV)</strong>.
+        </p>
+        <a href="tel:188" class="btn btn-primary">Ligar para o CVV agora (Sigiloso e Gratuito)</a>
+    </section>
+
+    <footer style="text-align: center; padding: 2rem; background: #000; font-size: 0.9rem; color: #888;">
+        <p>⚡ Se Liga Jovem - Plataforma de Cidadania e Direitos.</p>
+        <p>Este é um projeto educacional. Em caso de emergência real, ligue 190.</p>
+    </footer>
 
     <script>
-        // --------------------------------------------------------
-        // 1. SISTEMA DE ABAS (TABS)
-        // --------------------------------------------------------
-        function openTab(evt, tabName) {
-            // Esconde todas as abas
-            const tabContents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
-            }
-
-            // Remove a classe "active" de todos os botões
-            const tabBtns = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < tabBtns.length; i++) {
-                tabBtns[i].classList.remove("active");
-            }
-
-            // Mostra a aba clicada e marca o botão como ativo
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-
-        // --------------------------------------------------------
-        // 2. MURAL DE RECLAMAÇÕES (LocalStorage)
-        // --------------------------------------------------------
-        const complaintForm = document.getElementById('complaintForm');
-        const complaintsList = document.getElementById('complaintsList');
-
-        function loadComplaints() {
-            const savedComplaints = JSON.parse(localStorage.getItem('complaints')) || [];
-            complaintsList.innerHTML = ''; 
-
-            if (savedComplaints.length === 0) {
-                complaintsList.innerHTML = '<p style="color: #888; text-align:center;">Nenhuma reclamação registrada. O mural está vazio.</p>';
-                return;
-            }
-
-            savedComplaints.reverse().forEach(complaint => {
-                const div = document.createElement('div');
-                div.className = 'complaint-item';
-                div.innerHTML = `
-                    <div class="complaint-header">
-                        <span class="complaint-author">👤 ${complaint.author}</span>
-                        <span>🗓️ ${complaint.date}</span>
-                    </div>
-                    <div class="complaint-text">${complaint.message}</div>
-                `;
-                complaintsList.appendChild(div);
-            });
-        }
-
-        complaintForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const author = document.getElementById('author').value;
-            const message = document.getElementById('message').value;
-            const now = new Date();
-            const dateString = now.toLocaleDateString('pt-BR') + ' às ' + now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
-
-            const newComplaint = { author, message, date: dateString };
-            const savedComplaints = JSON.parse(localStorage.getItem('complaints')) || [];
-            savedComplaints.push(newComplaint);
-
-            localStorage.setItem('complaints', JSON.stringify(savedComplaints));
-            complaintForm.reset();
-            loadComplaints();
-        });
-
-        loadComplaints();
-
-        // --------------------------------------------------------
-        // 3. ANIMAÇÃO DOS BALÕES FLUTUANTES NO FUNDO
-        // --------------------------------------------------------
-        function createBalloons() {
-            const container = document.getElementById('balloonContainer');
-            const balloonCount = 15; // Quantidade de balões na tela
-
-            for (let i = 0; i < balloonCount; i++) {
-                let balloon = document.createElement('div');
-                balloon.classList.add('balloon');
-
-                // Tamanhos e posições aleatórias
-                let size = Math.random() * 60 + 20; // Entre 20px e 80px
-                let leftPos = Math.random() * 100; // Posição horizontal (0 a 100%)
-                let animDuration = Math.random() * 10 + 10; // Duração entre 10s e 20s
-                let delay = Math.random() * 15; // Atraso para não subirem todos juntos
-
-                balloon.style.width = `${size}px`;
-                balloon.style.height = `${size}px`;
-                balloon.style.left = `${leftPos}vw`;
-                balloon.style.animationDuration = `${animDuration}s`;
-                balloon.style.animationDelay = `${delay}s`;
-
-                container.appendChild(balloon);
+        function toggleMenu() {
+            // Verifica se a tela é mobile antes de tentar fechar o menu
+            if (window.innerWidth <= 768) {
+                const navLinks = document.getElementById("navLinks");
+                navLinks.classList.toggle("active");
             }
         }
-
-        // Inicia os balões quando a página carregar
-        window.onload = createBalloons;
-
     </script>
 </body>
 </html>
