@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Cidadania e Direitos</title>
     <style>
+        /* TEMA ESCURO (Dark Mode) */
         :root {
-            --primary-color: #2b1b8a; /* Cor inspirada no texto da imagem */
-            --secondary-color: #5544d4; /* Tom mais claro */
-            --danger-color: #d32f2f;
-            --bg-color: #f4f4f9;
-            --text-color: #333;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --primary-color: #bb86fc; /* Roxo claro para contraste em fundo escuro */
+            --secondary-color: #3700b3;
+            --text-color: #e0e0e0;
+            --danger-color: #cf6679;
+            --border-color: #333;
         }
 
         body {
@@ -20,89 +23,137 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            overflow-x: hidden; /* Evita rolagem horizontal com os balões */
         }
 
         header {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: #000;
             text-align: center;
-            padding: 1.5rem 1rem;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
+            padding: 2rem 1rem;
+            border-bottom: 3px solid var(--primary-color);
+            position: relative;
+            z-index: 10;
         }
 
         h1, h2, h3 {
             color: var(--primary-color);
         }
 
-        .hero h2 {
-            color: var(--secondary-color);
-            font-size: 1.5rem;
-            text-align: center;
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
         }
 
-        /* Seção de Emergência */
-        .emergency-box {
-            background-color: #ffebee;
-            border-left: 5px solid var(--danger-color);
-            padding: 1.5rem;
-            border-radius: 4px;
-        }
-
-        .emergency-box h3 {
-            color: var(--danger-color);
-            margin-top: 0;
+        /* SISTEMA DE ABAS */
+        .tabs {
             display: flex;
-            align-items: center;
             gap: 10px;
-        }
-
-        .phone-list {
-            list-style: none;
-            padding: 0;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-
-        .phone-list li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Formulário */
-        .form-group {
             margin-bottom: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
+        .tab-btn {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: #2c2c2c;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: #000;
+            border-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none; /* Esconde todas as abas por padrão */
+            background: var(--card-bg);
+            border-radius: 0 8px 8px 8px;
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block; /* Mostra apenas a aba ativa */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* NOTÍCIAS */
+        .news-box {
+            background-color: #2a2a2a;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            margin-top: 1.5rem;
+        }
+
+        .news-box a {
+            color: #64b5f6;
+            text-decoration: none;
             font-weight: bold;
         }
 
+        .news-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* EMERGÊNCIA */
+        .emergency-box {
+            background-color: rgba(207, 102, 121, 0.1);
+            border: 1px solid var(--danger-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .emergency-box h3, .phone-list a {
+            color: var(--danger-color);
+        }
+
+        .phone-list { list-style: none; padding: 0; font-size: 1.2rem; font-weight: bold; }
+        .phone-list li { margin-bottom: 0.8rem; }
+
+        /* FORMULÁRIO E MURAL */
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+        
         input[type="text"], textarea {
             width: 100%;
             padding: 0.8rem;
-            border: 1px solid #ccc;
+            background-color: #121212;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
             border-radius: 4px;
             box-sizing: border-box;
             font-family: inherit;
         }
 
-        button {
-            background-color: var(--secondary-color);
-            color: white;
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        button.submit-btn {
+            background-color: var(--primary-color);
+            color: #000;
             border: none;
             padding: 1rem 2rem;
             font-size: 1rem;
@@ -110,69 +161,87 @@
             cursor: pointer;
             width: 100%;
             font-weight: bold;
-            transition: background-color 0.3s;
+            transition: opacity 0.3s;
         }
 
-        button:hover {
-            background-color: var(--primary-color);
+        button.submit-btn:hover {
+            opacity: 0.8;
         }
 
-        /* Mural de Reclamações */
         .complaint-item {
-            border-bottom: 1px solid #eee;
-            padding: 1.5rem 0;
-        }
-
-        .complaint-item:last-child {
-            border-bottom: none;
+            background-color: #2c2c2c;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--primary-color);
         }
 
         .complaint-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 0.5rem;
-            color: #666;
             font-size: 0.9rem;
+            color: #aaa;
         }
 
-        .complaint-author {
-            font-weight: bold;
-            color: var(--primary-color);
+        .complaint-author { font-weight: bold; color: var(--primary-color); }
+
+        /* BALÕES FLUTUANTES (Fundo) */
+        .balloon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Para não atrapalhar o clique nos botões */
+            z-index: 1;
+            overflow: hidden;
         }
 
-        .empty-message {
-            text-align: center;
-            color: #777;
-            font-style: italic;
+        .balloon {
+            position: absolute;
+            bottom: -50px;
+            background-color: rgba(187, 134, 252, 0.15); /* Roxo bem transparente */
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
+
+    <div class="balloon-container" id="balloonContainer"></div>
 
     <header>
         <h1>Portal de Cidadania e Direitos</h1>
     </header>
 
     <div class="container">
-        <div class="card hero">
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'tab-info')">💡 Início & Notícias</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-mural')">🗣️ Mural de Reclamações</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-emergencia')">🚨 Telefones Úteis</button>
+        </div>
+
+        <div id="tab-info" class="tab-content active">
             <h2>Objetivo Geral</h2>
             <p><strong>Desenvolver uma plataforma digital integrada</strong> que promova a orientação de direitos, facilite denúncias seguras e estimule a educação cidadã e política de jovens e famílias.</p>
+            
+            <div class="news-box">
+                <h3>📰 Fique Atualizado</h3>
+                <p>Acompanhe as últimas notícias, decisões e debates sobre Direitos Humanos e Cidadania no Brasil.</p>
+                <a href="https://agenciabrasil.ebc.com.br/direitos-humanos" target="_blank">Ler notícias recentes na Agência Brasil ➔</a>
+            </div>
         </div>
 
-        <div class="card emergency-box">
-            <h3>⚠️ Telefones de Emergência e Denúncia</h3>
-            <p>Em caso de emergência ou para denúncias sigilosas graves, não use o mural público. Ligue imediatamente para as autoridades:</p>
-            <ul class="phone-list">
-                <li>🚓 Polícia Militar: <a href="tel:190" style="color: var(--danger-color);">190</a></li>
-                <li>🕵️ Disque Denúncia (Anônimo): <a href="tel:181" style="color: var(--danger-color);">181</a></li>
-                <li>🤝 Direitos Humanos: <a href="tel:100" style="color: var(--danger-color);">100</a></li>
-                <li>👩 Atendimento à Mulher: <a href="tel:180" style="color: var(--danger-color);">180</a></li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>Registrar uma Reclamação ou Alerta</h2>
-            <p>Use este espaço para relatar problemas em sua comunidade. <em>Atenção: este mural é público. Não inclua dados pessoais sensíveis (como CPF ou endereços exatos de vítimas).</em></p>
+        <div id="tab-mural" class="tab-content">
+            <h2>Registrar uma Reclamação</h2>
+            <p>Relate problemas em sua comunidade. <em>Atenção: este mural é público. Não inclua dados pessoais sensíveis.</em></p>
             
             <form id="complaintForm">
                 <div class="form-group">
@@ -182,37 +251,69 @@
                 
                 <div class="form-group">
                     <label for="message">Descrição da Reclamação:</label>
-                    <textarea id="message" rows="4" placeholder="Descreva o problema, o bairro, ou a situação que precisa de atenção..." required></textarea>
+                    <textarea id="message" rows="4" placeholder="Descreva o problema..." required></textarea>
                 </div>
 
-                <button type="submit">Publicar Reclamação no Mural</button>
+                <button type="submit" class="submit-btn">Publicar Reclamação</button>
             </form>
+
+            <h2 style="margin-top: 2rem;">Mural Público</h2>
+            <div id="complaintsList"></div>
         </div>
 
-        <div class="card">
-            <h2>Mural Público de Reclamações</h2>
-            <div id="complaintsList">
-                </div>
+        <div id="tab-emergencia" class="tab-content">
+            <div class="emergency-box">
+                <h3>⚠️ Emergência e Denúncia Sigilosa</h3>
+                <p>O mural público não deve ser usado para emergências em andamento. Ligue imediatamente para as autoridades:</p>
+                <ul class="phone-list">
+                    <li>🚓 Polícia Militar: <a href="tel:190">190</a></li>
+                    <li>🕵️ Disque Denúncia: <a href="tel:181">181</a></li>
+                    <li>🤝 Direitos Humanos: <a href="tel:100">100</a></li>
+                    <li>👩 Atendimento à Mulher: <a href="tel:180">180</a></li>
+                    <li>🚑 SAMU: <a href="tel:192">192</a></li>
+                </ul>
+            </div>
         </div>
+
     </div>
 
     <script>
-        // Lógica para salvar e exibir as reclamações
+        // --------------------------------------------------------
+        // 1. SISTEMA DE ABAS (TABS)
+        // --------------------------------------------------------
+        function openTab(evt, tabName) {
+            // Esconde todas as abas
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Remove a classe "active" de todos os botões
+            const tabBtns = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+
+            // Mostra a aba clicada e marca o botão como ativo
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // --------------------------------------------------------
+        // 2. MURAL DE RECLAMAÇÕES (LocalStorage)
+        // --------------------------------------------------------
         const complaintForm = document.getElementById('complaintForm');
         const complaintsList = document.getElementById('complaintsList');
 
-        // Função para carregar reclamações salvas no navegador (Local Storage)
         function loadComplaints() {
             const savedComplaints = JSON.parse(localStorage.getItem('complaints')) || [];
-            
-            complaintsList.innerHTML = ''; // Limpa a lista antes de renderizar
+            complaintsList.innerHTML = ''; 
 
             if (savedComplaints.length === 0) {
-                complaintsList.innerHTML = '<p class="empty-message">Nenhuma reclamação registrada ainda. Seja o primeiro a relatar um problema.</p>';
+                complaintsList.innerHTML = '<p style="color: #888; text-align:center;">Nenhuma reclamação registrada. O mural está vazio.</p>';
                 return;
             }
 
-            // Inverte a lista para mostrar as mais recentes primeiro
             savedComplaints.reverse().forEach(complaint => {
                 const div = document.createElement('div');
                 div.className = 'complaint-item';
@@ -227,38 +328,54 @@
             });
         }
 
-        // Função para salvar nova reclamação
         complaintForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Evita que a página recarregue
-
+            e.preventDefault();
             const author = document.getElementById('author').value;
             const message = document.getElementById('message').value;
-            
-            // Pega a data e hora atual
             const now = new Date();
             const dateString = now.toLocaleDateString('pt-BR') + ' às ' + now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
 
-            const newComplaint = {
-                author: author,
-                message: message,
-                date: dateString
-            };
-
-            // Pega as reclamações antigas e adiciona a nova
+            const newComplaint = { author, message, date: dateString };
             const savedComplaints = JSON.parse(localStorage.getItem('complaints')) || [];
             savedComplaints.push(newComplaint);
 
-            // Salva de volta no navegador
             localStorage.setItem('complaints', JSON.stringify(savedComplaints));
-
-            // Limpa o formulário e recarrega a lista
             complaintForm.reset();
             loadComplaints();
         });
 
-        // Carrega as reclamações assim que a página abre
         loadComplaints();
-    </script>
 
+        // --------------------------------------------------------
+        // 3. ANIMAÇÃO DOS BALÕES FLUTUANTES NO FUNDO
+        // --------------------------------------------------------
+        function createBalloons() {
+            const container = document.getElementById('balloonContainer');
+            const balloonCount = 15; // Quantidade de balões na tela
+
+            for (let i = 0; i < balloonCount; i++) {
+                let balloon = document.createElement('div');
+                balloon.classList.add('balloon');
+
+                // Tamanhos e posições aleatórias
+                let size = Math.random() * 60 + 20; // Entre 20px e 80px
+                let leftPos = Math.random() * 100; // Posição horizontal (0 a 100%)
+                let animDuration = Math.random() * 10 + 10; // Duração entre 10s e 20s
+                let delay = Math.random() * 15; // Atraso para não subirem todos juntos
+
+                balloon.style.width = `${size}px`;
+                balloon.style.height = `${size}px`;
+                balloon.style.left = `${leftPos}vw`;
+                balloon.style.animationDuration = `${animDuration}s`;
+                balloon.style.animationDelay = `${delay}s`;
+
+                container.appendChild(balloon);
+            }
+        }
+
+        // Inicia os balões quando a página carregar
+        window.onload = createBalloons;
+
+    </script>
 </body>
 </html>
