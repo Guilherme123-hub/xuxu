@@ -8,16 +8,14 @@
     <style>
         /* ================= VÁRIAVEIS DE CORES ================= */
         :root {
-            --bg-color: #0f0c29;
-            --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             --primary: #8A2BE2; /* Roxo */
             --secondary: #FF1493; /* Rosa */
             --accent-blue: #00BFFF; /* Azul */
             --accent-yellow: #FFD700; /* Amarelo */
             --text-light: #ffffff;
             --text-dark: #333333;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.08); /* Mais transparente para ver o fundo */
+            --card-border: rgba(255, 255, 255, 0.2);
             --danger: #FF4136;
             --whatsapp: #25D366;
         }
@@ -32,7 +30,16 @@
         }
 
         body {
-            background: var(--bg-gradient);
+            /* ===== SISTEMA DE FUNDO RESPONSIVO E ADAPTÁVEL ===== */
+            /* O linear-gradient cria uma camada escura para o texto não sumir na imagem clara */
+            background-image: 
+                linear-gradient(rgba(15, 12, 41, 0.85), rgba(15, 12, 41, 0.92)), 
+                url('fundo.jpeg'); 
+            background-size: cover; /* Faz a imagem cobrir toda a tela, adaptando-se a qualquer dispositivo */
+            background-position: center; /* Centraliza a imagem */
+            background-attachment: fixed; /* Deixa o fundo estático ao rolar a página */
+            background-repeat: no-repeat; /* Evita que a imagem se repita */
+            
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
@@ -45,7 +52,7 @@
 
         /* ================= CABEÇALHO ================= */
         header {
-            background: rgba(15, 12, 41, 0.9);
+            background: rgba(15, 12, 41, 0.7);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
@@ -96,6 +103,7 @@
             color: var(--accent-yellow);
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra para destacar do fundo */
         }
 
         /* ================= 1. HERO (INÍCIO) ================= */
@@ -117,13 +125,15 @@
             background: linear-gradient(to right, #ff9a9e, #fecfef, #a1c4fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
         }
 
         .hero-subtitle {
             font-size: 1.2rem;
             max-width: 600px;
             margin-bottom: 3rem;
-            color: #d1d1d1;
+            color: #f1f1f1;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
         .hero-buttons {
@@ -152,7 +162,7 @@
 
         .btn-primary { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(138, 43, 226, 0.4); }
         .btn-secondary { background: var(--secondary); color: white; box-shadow: 0 10px 20px rgba(255, 20, 147, 0.4); }
-        .btn-outline { background: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue); }
+        .btn-outline { background: rgba(0,0,0,0.5); border: 2px solid var(--accent-blue); color: var(--accent-blue); }
         .btn-outline:hover { background: var(--accent-blue); color: white; }
 
         /* ================= 2. APOIO WHATSAPP ================= */
@@ -173,11 +183,12 @@
             text-align: center;
             backdrop-filter: blur(10px);
             transition: transform 0.3s, background 0.3s;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         .card:hover {
             transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .card-icon {
@@ -195,9 +206,10 @@
 
         /* ================= 3. EMERGÊNCIA ================= */
         #emergencia {
-            background: rgba(255, 65, 54, 0.05);
-            border-top: 2px solid rgba(255, 65, 54, 0.2);
-            border-bottom: 2px solid rgba(255, 65, 54, 0.2);
+            background: rgba(255, 65, 54, 0.1);
+            border-top: 2px solid rgba(255, 65, 54, 0.3);
+            border-bottom: 2px solid rgba(255, 65, 54, 0.3);
+            backdrop-filter: blur(5px);
         }
 
         .emergency-grid {
@@ -209,13 +221,14 @@
         }
 
         .btn-emergency {
-            background: var(--danger);
+            background: rgba(255, 65, 54, 0.9);
             color: white;
             font-size: 1.5rem;
             flex-direction: column;
             padding: 1.5rem;
             border-radius: 15px;
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .btn-emergency span { font-size: 1rem; font-weight: 400; margin-top: 5px; }
@@ -234,13 +247,14 @@
             border-left: 5px solid var(--accent-blue);
             padding: 1.5rem;
             border-radius: 0 10px 10px 0;
+            backdrop-filter: blur(10px);
         }
 
         .right-item h3 { color: var(--accent-blue); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px; }
 
         /* ================= 5. NOTÍCIAS ================= */
         .news-card {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.95);
             color: var(--text-dark);
             border-radius: 15px;
             overflow: hidden;
@@ -249,7 +263,6 @@
         
         .news-img {
             height: 150px;
-            background: #ddd; /* Espaço para imagem real */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -272,7 +285,7 @@
             color: var(--accent-yellow);
             max-width: 800px;
             margin: 0 auto 2rem auto;
-            position: relative;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
         /* ================= RESPONSIVIDADE (MOBILE) ================= */
@@ -350,7 +363,7 @@
 
     <section id="emergencia">
         <h2 class="section-title">🚨 Telefones de Emergência</h2>
-        <p style="text-align: center; margin-bottom: 2rem;">Risco imediato? Não mande mensagem, <strong>LIGUE!</strong> A ligação é gratuita e pode ser feita de qualquer celular.</p>
+        <p style="text-align: center; margin-bottom: 2rem; text-shadow: 1px 1px 2px #000;">Risco imediato? Não mande mensagem, <strong>LIGUE!</strong> A ligação é gratuita e pode ser feita de qualquer celular.</p>
         <div class="emergency-grid">
             <a href="tel:190" class="btn btn-emergency">📞 190 <span>Polícia Militar</span></a>
             <a href="tel:192" class="btn btn-emergency">🚑 192 <span>SAMU (Socorro Médico)</span></a>
@@ -422,20 +435,19 @@
         <div class="quote-box">
             "Procurar ajuda não é sinal de fraqueza, é o maior ato de coragem que você pode ter por si mesmo."
         </div>
-        <p style="max-width: 700px; margin: 0 auto 2rem auto; font-size: 1.1rem;">
+        <p style="max-width: 700px; margin: 0 auto 2rem auto; font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
             A ansiedade, o estresse dos estudos, os problemas em casa... Tudo isso pode sobrecarregar. Lembre-se que seus sentimentos são válidos. Se você sentir que não aguenta mais, não guarde isso para você. Converse com um amigo, um professor ou ligue para o <strong>188 (CVV)</strong>.
         </p>
         <a href="tel:188" class="btn btn-primary">Ligar para o CVV agora (Sigiloso e Gratuito)</a>
     </section>
 
-    <footer style="text-align: center; padding: 2rem; background: #000; font-size: 0.9rem; color: #888;">
+    <footer style="text-align: center; padding: 2rem; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); font-size: 0.9rem; color: #aaa;">
         <p>⚡ Se Liga Jovem - Plataforma de Cidadania e Direitos.</p>
         <p>Este é um projeto educacional. Em caso de emergência real, ligue 190.</p>
     </footer>
 
     <script>
         function toggleMenu() {
-            // Verifica se a tela é mobile antes de tentar fechar o menu
             if (window.innerWidth <= 768) {
                 const navLinks = document.getElementById("navLinks");
                 navLinks.classList.toggle("active");
