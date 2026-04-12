@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Cidadania e Direitos</title>
+    <style>
+        :root {
+            --primary-color: #2b1b8a; /* Cor inspirada no texto da imagem */
+            --secondary-color: #5544d4; /* Tom mais claro */
+            --danger-color: #d32f2f;
+            --bg-color: #f4f4f9;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+
+        .hero h2 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        /* Seção de Emergência */
+        .emergency-box {
+            background-color: #ffebee;
+            border-left: 5px solid var(--danger-color);
+            padding: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .emergency-box h3 {
+            color: var(--danger-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phone-list {
+            list-style: none;
+            padding: 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .phone-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Formulário */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Mural de Reclamações */
+        .complaint-item {
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+        }
+
+        .complaint-item:last-child {
+            border-bottom: none;
+        }
+
+        .complaint-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .complaint-author {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Portal de Cidadania e Direitos</h1>
+    </header>
+
+    <div class="container">
+        <div class="card hero">
+            <h2>Objetivo Geral</h2>
+            <p><strong>Desenvolver uma plataforma digital integrada</strong> que promova a orientação de direitos, facilite denúncias seguras e estimule a educação cidadã e política de jovens e famílias.</p>
+        </div>
+
+        <div class="card emergency-box">
+            <h3>⚠️ Telefones de Emergência e Denúncia</h3>
+            <p>Em caso de emergência ou para denúncias sigilosas graves, não use o mural público. Ligue imediatamente para as autoridades:</p>
+            <ul class="phone-list">
+                <li>🚓 Polícia Militar: <a href="tel:190" style="color: var(--danger-color);">190</a></li>
+                <li>🕵️ Disque Denúncia (Anônimo): <a href="tel:181" style="color: var(--danger-color);">181</a></li>
+                <li>🤝 Direitos Humanos: <a href="tel:100" style="color: var(--danger-color);">100</a></li>
+                <li>👩 Atendimento à Mulher: <a href="tel:180" style="color: var(--danger-color);">180</a></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Registrar uma Reclamação ou Alerta</h2>
+            <p>Use este espaço para relatar problemas em sua comunidade. <em>Atenção: este mural é público. Não inclua dados pessoais sensíveis (como CPF ou endereços exatos de vítimas).</em></p>
+            
+            <form id="complaintForm">
+                <div class="form-group">
+                    <label for="author">Seu Nome (ou digite "Anônimo"):</label>
+                    <input type="text" id="author" placeholder="Ex: João da Silva ou Anônimo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Descrição da Reclamação:</label>
+                    <textarea id="message" rows="4" placeholder="Descreva o problema, o bairro, ou a situação que precisa de atenção..." required></textarea>
+                </div>
+
+                <button type="submit">Publicar Reclamação no Mural</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Mural Público de Reclamações</h2>
+            <div id="complaintsList">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // Lógica para salvar e exibir as reclamações
+        const complaintForm = document.getElementById('complaintForm');
+        const complaintsList = document.getElementById('complaintsList');
+
+        // Função para carregar reclamações salvas no navegador (Local Storage)
+        function loadComplaints() {
+            const savedComplaints = JSON.parse(localStorage.getItem('complaints')) || [];
+            
+            complaintsList.innerHTML = ''; // Limpa a lista antes de renderizar
+
+            if (savedComplaints.length === 0) {
+                complaintsList.innerHTML = '<p class="empty-message">Nenhuma reclamação registrada ainda. Seja o primeiro a relatar um problema.</p>';
+                return;
+            }
+
+            // Inverte a lista para mostrar as mais recentes primeiro
+            savedComplaints.reverse().forEach(complaint => {
+                const div = document.createElement('div');
+                div.className = 'complaint-item';
+                div.innerHTML = `
+                    <div class="complaint-header">
+                        <span class="complaint-author">👤 ${complaint.author}</span>
+                        <span>🗓️ ${complaint.date}</span>
+                    </div>
+                    <div class="complaint-text">${complaint.message}</div>
+                `;
+                complaintsList.appendChild(div);
+            });
+        }
+
+        // Função para salvar nova reclamação
+        complaintForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que a página recarregue
+
+            const author = document.getElementById('author').value;
+            const message = document.getElementById('message').value;
+            
+            // Pega a data e hora atual
+            const now = new Date();
+            const dateString = now.toLocaleDateString('pt-BR') + ' às ' + now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+
+            const newComplaint = {
+                author: author,
+                message: message,
+                date: dateString
+            };
+
+            // Pega as reclamações antigas e adiciona a nova
+            const savedComplaints = JSON.parse(localStorage.getItem('complaints')) || [];
+            savedComplaints.push(newComplaint);
+
+            // Salva de volta no navegador
+            localStorage.setItem('complaints', JSON.stringify(savedComplaints));
+
+            // Limpa o formulário e recarrega a lista
+            complaintForm.reset();
+            loadComplaints();
+        });
+
+        // Carrega as reclamações assim que a página abre
+        loadComplaints();
+    </script>
+
+</body>
+</html>
