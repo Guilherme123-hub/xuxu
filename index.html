@@ -14,7 +14,7 @@
             --accent-yellow: #FFD700; /* Amarelo */
             --text-light: #ffffff;
             --text-dark: #333333;
-            --card-bg: rgba(255, 255, 255, 0.08); /* Mais transparente para ver o fundo */
+            --card-bg: rgba(255, 255, 255, 0.08); /* Transparente para ver o fundo */
             --card-border: rgba(255, 255, 255, 0.2);
             --danger: #FF4136;
             --whatsapp: #25D366;
@@ -30,15 +30,14 @@
         }
 
         body {
-            /* ===== SISTEMA DE FUNDO RESPONSIVO E ADAPTÁVEL ===== */
-            /* O linear-gradient cria uma camada escura para o texto não sumir na imagem clara */
+            /* ===== SISTEMA DE FUNDO RESPONSIVO ===== */
             background-image: 
                 linear-gradient(rgba(15, 12, 41, 0.85), rgba(15, 12, 41, 0.92)), 
-                url('fundo.jpeg'); /* NOME DA IMAGEM ATUALIZADO AQUI */
-            background-size: cover; /* Faz a imagem cobrir toda a tela, adaptando-se a qualquer dispositivo */
-            background-position: center; /* Centraliza a imagem */
-            background-attachment: fixed; /* Deixa o fundo estático ao rolar a página */
-            background-repeat: no-repeat; /* Evita que a imagem se repita */
+                url('fundo.jpeg'); /* NOME DA IMAGEM AQUI */
+            background-size: cover; /* Faz a imagem cobrir toda a tela */
+            background-position: center center; /* Mantém centralizado no PC e Celular */
+            background-attachment: fixed; /* Efeito parallax no PC */
+            background-repeat: no-repeat; 
             
             color: var(--text-light);
             line-height: 1.6;
@@ -52,7 +51,7 @@
 
         /* ================= CABEÇALHO ================= */
         header {
-            background: rgba(15, 12, 41, 0.7);
+            background: rgba(15, 12, 41, 0.9);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
@@ -66,7 +65,7 @@
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
             background: linear-gradient(to right, var(--accent-blue), var(--secondary));
             -webkit-background-clip: text;
@@ -81,6 +80,7 @@
         .nav-links a {
             font-weight: 600;
             transition: color 0.3s;
+            font-size: 0.95rem;
         }
 
         .nav-links a:hover {
@@ -89,8 +89,8 @@
 
         /* ================= SEÇÕES COMUNS ================= */
         section {
-            padding: 5rem 5%;
-            min-height: 80vh;
+            padding: 6rem 5% 4rem 5%;
+            min-height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -98,12 +98,12 @@
 
         h2.section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 2rem;
             color: var(--accent-yellow);
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra para destacar do fundo */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         /* ================= 1. HERO (INÍCIO) ================= */
@@ -114,11 +114,10 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding-top: 80px;
         }
 
         .hero-title {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 800;
             margin-bottom: 1rem;
             line-height: 1.2;
@@ -129,8 +128,8 @@
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
-            max-width: 600px;
+            font-size: 1.1rem;
+            max-width: 650px;
             margin-bottom: 3rem;
             color: #f1f1f1;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
@@ -141,18 +140,20 @@
             gap: 1rem;
             flex-wrap: wrap;
             justify-content: center;
+            width: 100%;
         }
 
         .btn {
             padding: 1rem 2rem;
             border-radius: 50px;
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
             border: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
         }
 
@@ -231,7 +232,7 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .btn-emergency span { font-size: 1rem; font-weight: 400; margin-top: 5px; }
+        .btn-emergency span { font-size: 0.9rem; font-weight: 400; margin-top: 5px; text-transform: uppercase;}
 
         /* ================= 4. DIREITOS ================= */
         .rights-list {
@@ -248,6 +249,7 @@
             padding: 1.5rem;
             border-radius: 0 10px 10px 0;
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .right-item h3 { color: var(--accent-blue); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px; }
@@ -280,7 +282,7 @@
         }
 
         .quote-box {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-style: italic;
             color: var(--accent-yellow);
             max-width: 800px;
@@ -292,10 +294,25 @@
         .menu-toggle { display: none; font-size: 2rem; cursor: pointer; }
 
         @media (max-width: 768px) {
+            body {
+                background-attachment: scroll; /* Melhora a performance do fundo em alguns celulares */
+            }
+
+            .logo { font-size: 1.2rem; }
+
             .hero-title { font-size: 2.2rem; }
-            .hero-buttons { flex-direction: column; width: 100%; padding: 0 20px; }
+            .hero-subtitle { font-size: 1rem; padding: 0 15px; }
+            .hero-buttons { flex-direction: column; padding: 0 20px; }
             .btn { width: 100%; justify-content: center; }
             
+            h2.section-title { font-size: 1.8rem; }
+            
+            .emergency-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .btn-emergency { padding: 1rem; font-size: 1.2rem; }
+            .btn-emergency span { font-size: 0.75rem; }
+
+            .right-item { border-left: none; border-top: 5px solid var(--accent-blue); border-radius: 10px; }
+
             .menu-toggle { display: block; }
             
             .nav-links {
@@ -305,9 +322,10 @@
                 top: 70px;
                 left: 0;
                 width: 100%;
-                background: rgba(15, 12, 41, 0.95);
+                background: rgba(15, 12, 41, 0.98);
                 padding: 1rem 0;
                 text-align: center;
+                border-bottom: 1px solid var(--card-border);
             }
             .nav-links.active { display: flex; }
         }
@@ -344,33 +362,35 @@
                 <div class="card-icon">🛡️</div>
                 <h3>Conselho Tutelar</h3>
                 <p>Para denúncias de violação de direitos de crianças e adolescentes.</p>
-                <a href="https://wa.me/5511900000000?text=Olá,%20preciso%20de%20ajuda%20do%20Conselho%20Tutelar." target="_blank" class="btn btn-whatsapp">Chamar no Whats</a>
+                <a href="https://wa.me/5533991592007?text=Olá,%20preciso%20de%20ajuda%20do%20Conselho%20Tutelar." target="_blank" class="btn btn-whatsapp">Chamar no Whats</a>
             </div>
+
             <div class="card">
                 <div class="card-icon">🚓</div>
-                <h3>Polícia Local</h3>
+                <h3>Polícia Local (T.O.)</h3>
                 <p>Contato direto para situações suspeitas ou orientações não urgentes.</p>
-                <a href="https://wa.me/5511900000000?text=Olá,%20gostaria%20de%20fazer%20uma%20denúncia/relato." target="_blank" class="btn btn-whatsapp">Chamar no Whats</a>
+                <a href="https://wa.me/553191616054?text=Olá,%20gostaria%20de%20fazer%20uma%20denúncia/relato." target="_blank" class="btn btn-whatsapp">Chamar no Whats</a>
             </div>
+
             <div class="card">
-                <div class="card-icon">💛</div>
-                <h3>Apoio Emocional</h3>
-                <p>Está difícil lidar com tudo? Converse com um voluntário (CVV).</p>
-                <a href="https://wa.me/5511900000000?text=Olá,%20preciso%20conversar%20com%20alguém." target="_blank" class="btn btn-whatsapp">Chamar no Whats</a>
+                <div class="card-icon">💻</div>
+                <h3>Delegacia Cybernética</h3>
+                <p>Fui vítima de golpe ou crime na internet? Denuncie por aqui.</p>
+                <a href="https://wa.me/553384010804?text=Olá,%20preciso%20denunciar%20um%20crime%20virtual." target="_blank" class="btn btn-whatsapp">Chamar no Whats</a>
             </div>
         </div>
     </section>
 
     <section id="emergencia">
         <h2 class="section-title">🚨 Telefones de Emergência</h2>
-        <p style="text-align: center; margin-bottom: 2rem; text-shadow: 1px 1px 2px #000;">Risco imediato? Não mande mensagem, <strong>LIGUE!</strong> A ligação é gratuita e pode ser feita de qualquer celular.</p>
+        <p style="text-align: center; margin-bottom: 2rem; text-shadow: 1px 1px 2px #000; padding: 0 15px;">Risco imediato? Não mande mensagem, <strong>LIGUE!</strong> A ligação é gratuita e pode ser feita de qualquer celular.</p>
         <div class="emergency-grid">
             <a href="tel:190" class="btn btn-emergency">📞 190 <span>Polícia Militar</span></a>
-            <a href="tel:192" class="btn btn-emergency">🚑 192 <span>SAMU (Socorro Médico)</span></a>
+            <a href="tel:192" class="btn btn-emergency">🚑 192 <span>SAMU Médico</span></a>
             <a href="tel:193" class="btn btn-emergency">🚒 193 <span>Bombeiros</span></a>
-            <a href="tel:100" class="btn btn-emergency">🗣️ 100 <span>Direitos Humanos</span></a>
-            <a href="tel:180" class="btn btn-emergency">💜 180 <span>Apoio à Mulher</span></a>
-            <a href="tel:188" class="btn btn-emergency">💛 188 <span>CVV (Prevenção ao Suicídio)</span></a>
+            <a href="tel:100" class="btn btn-emergency" style="background: rgba(68, 68, 68, 0.9);">🗣️ 100 <span>Dir. Humanos</span></a>
+            <a href="tel:180" class="btn btn-emergency" style="background: rgba(142, 68, 173, 0.9);">💜 180 <span>Apoio à Mulher</span></a>
+            <a href="tel:188" class="btn btn-emergency" style="background: rgba(225, 173, 1, 0.9);">💛 188 <span>CVV Apoio</span></a>
         </div>
     </section>
 
@@ -435,14 +455,14 @@
         <div class="quote-box">
             "Procurar ajuda não é sinal de fraqueza, é o maior ato de coragem que você pode ter por si mesmo."
         </div>
-        <p style="max-width: 700px; margin: 0 auto 2rem auto; font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
+        <p style="max-width: 700px; margin: 0 auto 2rem auto; font-size: 1.1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); padding: 0 15px;">
             A ansiedade, o estresse dos estudos, os problemas em casa... Tudo isso pode sobrecarregar. Lembre-se que seus sentimentos são válidos. Se você sentir que não aguenta mais, não guarde isso para você. Converse com um amigo, um professor ou ligue para o <strong>188 (CVV)</strong>.
         </p>
         <a href="tel:188" class="btn btn-primary">Ligar para o CVV agora (Sigiloso e Gratuito)</a>
     </section>
 
-    <footer style="text-align: center; padding: 2rem; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); font-size: 0.9rem; color: #aaa;">
-        <p>⚡ Se Liga Jovem - Plataforma de Cidadania e Direitos.</p>
+    <footer style="text-align: center; padding: 2rem; background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); font-size: 0.9rem; color: #aaa;">
+        <p>⚡ Se Liga Jovem - Plataforma de Cidadania e Direitos - Teófilo Otoni/MG.</p>
         <p>Este é um projeto educacional. Em caso de emergência real, ligue 190.</p>
     </footer>
 
